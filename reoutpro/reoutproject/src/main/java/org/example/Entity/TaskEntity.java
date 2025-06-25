@@ -1,4 +1,5 @@
-package org.example.reoutproject.Entity;
+package org.example.Entity;
+
 import jakarta.persistence.*;
 
 @Entity
