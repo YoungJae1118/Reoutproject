@@ -19,4 +19,5 @@ public class TaskEntity {
 
     @Column(nullable = false)
     private String content;
+    //
 }
