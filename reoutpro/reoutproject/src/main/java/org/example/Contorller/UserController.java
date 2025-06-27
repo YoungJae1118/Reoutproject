@@ -26,31 +26,31 @@ public class UserController {
 
     //유저 생성
     @PostMapping
-    public UserCreateResponseDto createUser(UserCreateRequestDto userCreateRequestDto) {
+    public UserCreateResponseDto createUserControl(UserCreateRequestDto userCreateRequestDto) {
         return userService.createUser(userCreateRequestDto);
     }
 
     //유저 전체 조회
     @GetMapping
-    public List<UserFindResponseDto> finAllUser() {
+    public List<UserFindResponseDto> finAllUserControl() {
         return userService.findAllUser();
     }
 
     //유저 단건 조회
     @GetMapping("/{userId}")
-    public UserFindResponseDto findbById(@PathVariable Long userId) {
+    public UserFindResponseDto findbByIdControl(@PathVariable Long userId) {
         return userService.findById(userId);
     }
 
     //유저 수정
     @PutMapping("/{userId}")
-    public UserUpdateResponseDto updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+    public UserUpdateResponseDto updateUserControl(@PathVariable Long userId, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.updateUser(userId, userUpdateRequestDto);
     }
 
     //유저 삭제
     @DeleteMapping("/{userId}")
-    public UserDeleteResponseDto deleteUser(@PathVariable Long userId) {
+    public UserDeleteResponseDto deleteUserControl(@PathVariable Long userId) {
         return userService.deleteUser(userId);
     }
 }
