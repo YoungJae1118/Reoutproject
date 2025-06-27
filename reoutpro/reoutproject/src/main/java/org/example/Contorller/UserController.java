@@ -1,48 +1,70 @@
 package org.example.Contorller;
 
-import org.example.Entity.UserEntity;
+
+import org.example.Dto.RequestDto.User.UserCreateRequestDto;
+import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
+import org.example.Dto.ResponseDto.User.UserCreateResponseDto;
+import org.example.Dto.ResponseDto.User.UserDeleteResponseDto;
+import org.example.Dto.ResponseDto.User.UserFindResponseDto;
+import org.example.Dto.ResponseDto.User.UserUpdateResponseDto;
+import org.example.Repository.UserRepository;
 import org.example.Service.UserService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
-    private final UserService userService;
+    public final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
+
     //유저 생성
-    @PostMapping("/register")
-    public UserEntity createUser(UserEntity user) {
-        return userService.creeateUser(user);
+    @PostMapping
+    public UserCreateResponseDto createUser(UserCreateRequestDto userCreateRequestDto) {
+        return userService.createUser(userCreateRequestDto);
     }
+
     //유저 전체 조회
-    @GetMapping("/find/all")
-    public List<UserEntity> finAllUser() {
+    @GetMapping
+    public List<UserFindResponseDto> finAllUser() {
         return userService.findAllUser();
     }
-    //유저 단건 조회(이름, 이메일)
-    @GetMapping("/find")
-    public List<UserEntity> findByNameUser(@RequestParam String name) {
-        return userService.findByNameUser(name);
+
+    //유저 단건 조회
+    @GetMapping("/{userId}")
+    public UserFindResponseDto findbById(@PathVariable Long userId) {
+        return userService.findById(userId);
     }
-    @GetMapping("/find")
-    public Optional<UserEntity> findByEmailUser(@RequestParam String email) {
-        return userService.findByEmailUser(email);
-    }
+
     //유저 수정
-    @PutMapping("/update")
-    public UserEntity updateUser(@RequestParam Long id, @RequestBody UserEntity user) {
-        return userService.updateUser(id,user);
+    @PutMapping("/{userId}")
+    public UserUpdateResponseDto updateUser(@PathVariable Long userId, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+        return userService.updateUser(userId, userUpdateRequestDto);
     }
+
     //유저 삭제
-    @DeleteMapping("/delete")
-    public void deleteUser(@RequestParam Long id) {
-        userService.deleteUser(id);
+    @DeleteMapping("/{userId}")
+    public UserDeleteResponseDto deleteUser(@PathVariable Long userId) {
+        return userService.deleteUser(userId);
     }
 }
+
+//    //유저 필터 조회(이름, 이메일)  XXXXXX
+//    @GetMapping("/find")
+//    public List<UserFindResponseDto> findByNameUser(@RequestParam String name) {
+//        return userService.findByNameUser(name);
+//    }
+//
+//    @GetMapping("/find")
+//    public Optional<UserEntity> findByEmailUser(@RequestParam String email) {
+//
+//    }
+
 
 

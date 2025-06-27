@@ -1,7 +1,9 @@
 package org.example.Entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
+@Getter
 @Entity
 @Table(name = "tasks")
 public class TaskEntity {
@@ -19,5 +21,15 @@ public class TaskEntity {
 
     @Column(nullable = false)
     private String content;
-    //
+
+    public TaskEntity(Long id, UserEntity userEntity, String title, String content) {
+        this.id = id;
+        this.user = userEntity;
+        this.title = title;
+        this.content = content;
+    }
+
+    public TaskEntity() {
+
+    }
 }
