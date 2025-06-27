@@ -1,50 +1,67 @@
 package org.example.Contorller;
 
-import org.example.Entity.TaskEntity;
-import org.example.Entity.UserEntity;
+import org.example.Dto.RequestDto.Task.TaskCreateRequestDto;
+import org.example.Dto.RequestDto.Task.TaskUpdateRequestDto;
+import org.example.Dto.ResponseDto.Task.TaskCreateResponseDto;
+import org.example.Dto.ResponseDto.Task.TaskDeleteResponseDto;
+import org.example.Dto.ResponseDto.Task.TaskFindResponseDto;
+import org.example.Dto.ResponseDto.Task.TaskUpdateResponseDto;
 import org.example.Repository.UserRepository;
 import org.example.Service.TaskService;
-import org.springframework.scheduling.config.Task;
-import org.springframework.scheduling.config.TaskExecutionOutcome;
+import org.example.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/tasks")
 public class TaskController {
     private final TaskService taskService;
-    private final UserRepository userRepository;
 
-    public TaskController(TaskService taskService,UserRepository userRepository) {
+    public TaskController(TaskService taskService, UserRepository userRepository, UserService userService) {
         this.taskService = taskService;
-        this.userRepository = userRepository;
     }
 
-    @PostMapping("/create")
-    public TaskEntity taskCrete(TaskEntity task) {
-       return taskService.createTask(task);
+    @PostMapping
+    public TaskCreateResponseDto createTask(TaskCreateRequestDto taskCreateRequestDto) {
+        return taskService.createTask(taskCreateRequestDto);
     }
 
-    @GetMapping("/find")
-    public List<TaskEntity> findAllTask() {
+    @GetMapping
+    public List<TaskFindResponseDto> findAllTask() {
         return taskService.findAllTask();
     }
 
-    @GetMapping("/find")
-    public List<TaskEntity> findByTitleTask(@RequestParam String title) {
-        return taskService.findByTitleTask(title);
+    @GetMapping("/{taskId}")
+    public TaskFindResponseDto findByIdtask(@PathVariable Long taskId) {
+        return taskService.findByIdTask(taskId);
     }
 
-    @GetMapping("/find")
-    public List<TaskEntity> findByUserTask(@RequestParam String name) {
-        //이름으로 태스크 조회하는 기능
+    @PutMapping("{/taskId}")
+    public TaskUpdateResponseDto updateTask(@PathVariable Long taskId, @RequestBody TaskUpdateRequestDto taskUpdateRequestDto) {
+        return taskService.updateTask(taskId, taskUpdateRequestDto);
     }
-    @DeleteMapping("/delete")
-    public void deleteTask(@RequestParam Long id) {
-        taskService.deleteTask(id);
-        //
+
+    @DeleteMapping("/{taskId}")
+    public TaskDeleteResponseDto deleteTask(@PathVariable Long taskId) {
+        return taskService.deleteTask(taskId);
     }
 }
+    /*
+        @GetMapping("/find")
+        public List<TaskEntity> findByTitleTask(@RequestParam String title) {
+            return taskService.findByTitleTask(title);
+        }
+
+        @GetMapping("/find")
+        public List<TaskEntity> findByUserTask(@RequestParam String name) {
+            List<UserEntity> allUser = userRepository.findByName(name);
+            List<TaskEntity> allTask = new ArrayList<>();
+            //미숙 반복하기
+            for (UserEntity user : allUser){
+                allTask.addAll(taskService.findByNameTask(user));
+            }
+            return allTask;
+        }
+    */
+
