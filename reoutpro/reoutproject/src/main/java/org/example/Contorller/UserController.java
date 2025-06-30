@@ -1,17 +1,11 @@
 package org.example.Contorller;
 
-
 import org.example.Dto.RequestDto.User.UserCreateRequestDto;
 import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
-import org.example.Dto.ResponseDto.User.UserCreateResponseDto;
-import org.example.Dto.ResponseDto.User.UserDeleteResponseDto;
-import org.example.Dto.ResponseDto.User.UserFindResponseDto;
-import org.example.Dto.ResponseDto.User.UserUpdateResponseDto;
+import org.example.Dto.ResponseDto.User.*;
 import org.example.Repository.UserRepository;
 import org.example.Service.UserService;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -26,13 +20,13 @@ public class UserController {
 
     //유저 생성
     @PostMapping
-    public UserCreateResponseDto createUserControl(UserCreateRequestDto userCreateRequestDto) {
+    public UserCreateResponseDto createUserControl(@RequestBody UserCreateRequestDto userCreateRequestDto) {
         return userService.createUser(userCreateRequestDto);
     }
 
     //유저 전체 조회
     @GetMapping
-    public List<UserFindResponseDto> finAllUserControl() {
+    public UserFindAllResponseDto finAllUserControl() {
         return userService.findAllUser();
     }
 

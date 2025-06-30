@@ -1,16 +1,13 @@
 package org.example.Service;
 
+import jakarta.transaction.Transactional;
 import org.example.Dto.RequestDto.User.UserCreateRequestDto;
 import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
-import org.example.Dto.ResponseDto.User.UserCreateResponseDto;
-import org.example.Dto.ResponseDto.User.UserDeleteResponseDto;
-import org.example.Dto.ResponseDto.User.UserFindResponseDto;
-import org.example.Dto.ResponseDto.User.UserUpdateResponseDto;
+import org.example.Dto.ResponseDto.User.*;
 import org.example.Entity.UserEntity;
 import org.example.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,6 +19,7 @@ public class UserService {
     }
 
     //유저 생성
+    @Transactional
     public UserCreateResponseDto createUser(UserCreateRequestDto userCreateRequestDto) {
         //1. 데이터 준비
         String email = userCreateRequestDto.getEmail();
@@ -38,27 +36,26 @@ public class UserService {
     }
 
     //유저 전체 조회
-    public List<UserFindResponseDto> findAllUser() {
+    @Transactional
+    public UserFindAllResponseDto findAllUser() {
         // 1.데이터 준비하기
         List<UserEntity> userList;
-        List<UserFindResponseDto> userFindResponseDtoList = new ArrayList<>();
+        List<UsersDto> usersDtoList;
         // 2. 검증로직 작성 필요시
 
         // 3. 리스트 조회
         userList = userRepository.findAll();
         // 4. responseDto 만들기
-        for (UserEntity user : userList) {
-            UserFindResponseDto userFindResponseDto = new UserFindResponseDto(
-                    user.getId(), user.getEmail(), user.getName()
-            );
-            userFindResponseDtoList.add(userFindResponseDto);
-        }
+        usersDtoList = userList.stream()
+                .map(user -> new UsersDto(user.getId(), user.getEmail(), user.getName()))
+                .toList();
+        UserFindAllResponseDto userFindAllResponseDto = new UserFindAllResponseDto(usersDtoList);
         // 5. responserDto 반환
-        return userFindResponseDtoList;
+        return userFindAllResponseDto;
     }
 
-
     //유저 단건 조회
+    @Transactional
     public UserFindResponseDto findById(Long id) {
         // 1. 데이터 준비하기
         Long userId = id;
@@ -76,7 +73,7 @@ public class UserService {
         // 1. 데이터 준비하기
         String newEmail = updateUser.getEmail();
         String newPassword = updateUser.getPassword();
-        String newName = updateUser.getPassword();
+        String newName = updateUser.getName();
         // 2. 검증로직 작성 필요시  3. 조회
         UserEntity oldUser = userRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 유저 정보가 없습니다"));
@@ -89,6 +86,7 @@ public class UserService {
         return userUpdateResponseDto;
     }
 
+    @Transactional
     public UserDeleteResponseDto deleteUser(Long id) {
         // 1. 데이터 준비하기
 
