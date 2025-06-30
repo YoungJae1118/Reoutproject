@@ -20,7 +20,7 @@ public class UserEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false, length = 5)
+    @Column(nullable = false, length = 20)
     private String name;
 
     protected UserEntity() {

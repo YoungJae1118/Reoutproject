@@ -22,9 +22,15 @@ public class TaskEntity {
     @Column(nullable = false)
     private String content;
 
-    public TaskEntity(Long id, UserEntity userEntity, String title, String content) {
-        this.id = id;
+    public TaskEntity(UserEntity userEntity, String title, String content) {
         this.user = userEntity;
+        this.title = title;
+        this.content = content;
+    }
+
+    public TaskEntity(Long id, UserEntity user, String title, String content) {
+        this.id = id;
+        this.user = user;
         this.title = title;
         this.content = content;
     }
