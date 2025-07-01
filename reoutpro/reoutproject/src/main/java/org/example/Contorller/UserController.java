@@ -30,11 +30,12 @@ public class UserController {
 
     //유저 단건 조회
     @GetMapping("/{userId}")
-    public UserFindResponseDto findbByIdControl(@PathVariable Long userId) {
+    public UserFindResponseDto findByIdControl(@PathVariable Long userId) {
         return userService.findById(userId);
     }
 
     //유저 수정
+
     @PutMapping("/{userId}")
     public UserUpdateResponseDto updateUserControl(@PathVariable Long userId, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.updateUser(userId, userUpdateRequestDto);
@@ -46,17 +47,6 @@ public class UserController {
         return userService.deleteUser(userId);
     }
 }
-
-//    //유저 필터 조회(이름, 이메일)  XXXXXX
-//    @GetMapping("/find")
-//    public List<UserFindResponseDto> findByNameUser(@RequestParam String name) {
-//        return userService.findByNameUser(name);
-//    }
-//
-//    @GetMapping("/find")
-//    public Optional<UserEntity> findByEmailUser(@RequestParam String email) {
-//
-//    }
 
 
 
