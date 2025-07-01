@@ -38,4 +38,9 @@ public class TaskEntity {
     public TaskEntity() {
 
     }
+
+    public void updateTitleandContent(String newTitle, String newContent) {
+        this.title = newTitle;
+        this.content = newContent;
+    }
 }

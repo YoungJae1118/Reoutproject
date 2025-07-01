@@ -69,6 +69,7 @@ public class UserService {
     }
 
     //유저 수정
+    @Transactional
     public UserUpdateResponseDto updateUser(Long id, UserUpdateRequestDto updateUser) {
         // 1. 데이터 준비하기
         String newEmail = updateUser.getEmail();
