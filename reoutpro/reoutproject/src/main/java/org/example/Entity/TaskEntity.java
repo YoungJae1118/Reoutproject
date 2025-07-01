@@ -12,7 +12,7 @@ public class TaskEntity {
     @Column(name = "task_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
@@ -22,25 +22,26 @@ public class TaskEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private boolean softDeleted;
+
     public TaskEntity(UserEntity userEntity, String title, String content) {
         this.user = userEntity;
         this.title = title;
         this.content = content;
     }
 
-    public TaskEntity(Long id, UserEntity user, String title, String content) {
-        this.id = id;
-        this.user = user;
-        this.title = title;
-        this.content = content;
-    }
 
     public TaskEntity() {
 
     }
 
-    public void updateTitleandContent(String newTitle, String newContent) {
+    public void updateTitleAndContent(String newTitle, String newContent) {
         this.title = newTitle;
         this.content = newContent;
+    }
+
+    public void taskSoftDeleted() {
+        this.softDeleted = true;
     }
 }

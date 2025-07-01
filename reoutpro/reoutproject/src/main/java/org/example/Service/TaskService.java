@@ -48,14 +48,12 @@ public class TaskService {
     @Transactional
     public TaskFindAllResponseDto findAllTask() {
         // 1. 데이터 준비
-        List<TaskEntity> tasks;
-        List<TasksDto> tasksDtoList;
         // 2.검증로직 작성 필요시
 
         // 3. 리스트 조회
-        tasks = taskRepository.findAll();
+        List<TaskEntity> tasks = taskRepository.findBySoftDeleted(false);
         // 4. reponseDto 만들기
-        tasksDtoList = tasks.stream()
+        List<TasksDto> tasksDtoList = tasks.stream()
                 .map(task -> new TasksDto(task.getId(), task.getUser(), task.getTitle(), task.getContent()))
                 .toList();
         TaskFindAllResponseDto taskFindAllResponseDto = new TaskFindAllResponseDto(tasksDtoList);
@@ -65,11 +63,9 @@ public class TaskService {
 
     //태스크 단건 조회
     @Transactional
-    public TaskFindResponseDto findByIdTask(Long id) {
-        // 1. 데이터
-        TaskEntity taskEntity = new TaskEntity();
+    public TaskFindResponseDto findByIdTask(Long taskId) {
         // 2. 검증로직 3. 조회
-        taskEntity = taskRepository.findById(id)
+        TaskEntity taskEntity = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 Task가 존재하지 않습니다."));
         // 4. Dto 만들기
         TaskFindResponseDto taskFindResponseDto = new TaskFindResponseDto(
@@ -89,12 +85,12 @@ public class TaskService {
         TaskEntity task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 Task가 존재하지 않습니다."));
         // 4. 업데이트
-        task.updateTitleandContent(newTitle, newContent);
+        task.updateTitleAndContent(newTitle, newContent);
+        taskRepository.save(task);
         // 5. Dto 만들기
         TaskUpdateResponseDto taskUpdateResponseDto = new TaskUpdateResponseDto(
                 taskId, task.getUser(), newTitle, newContent
         );
-        taskRepository.save(task);
         // 6. Dto 반환
         return taskUpdateResponseDto;
     }
@@ -105,25 +101,13 @@ public class TaskService {
         // 1. 데이터 준비
 
         //2. 검증로직 3. 조회
-        TaskEntity taskEntity = taskRepository.findById(taskId)
+        TaskEntity task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 Task가 존재하지 않습니다."));
         // 4. 삭제
-        taskRepository.deleteById(taskId);
+        task.taskSoftDeleted();
         // 5. Dto 만들기
         TaskDeleteResponseDto taskDeleteResponseDto = new TaskDeleteResponseDto("삭제가 완료되었습니다.");
         // 6. Dto 반환
         return taskDeleteResponseDto;
     }
 }
-    /*
-        //태스크 필터 조회 (타이틀, 이름)
-        public List<TaskEntity> findByTitleTask(String title) {
-            return taskRepository.findByTitle(title);
-        }
-
-        public List<TaskEntity> findByNameTask(UserEntity user) {
-            return taskRepository.findByUser(user);
-        }
-
-     */
-

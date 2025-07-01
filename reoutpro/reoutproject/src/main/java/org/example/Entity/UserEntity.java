@@ -39,5 +39,11 @@ public class UserEntity {
         this.password = password;
         this.name = name;
     }
+
+    public void updateUser(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
 }
 //
