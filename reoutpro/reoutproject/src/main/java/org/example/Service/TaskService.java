@@ -25,9 +25,9 @@ public class TaskService {
 
     //태스크 생성
     @Transactional
-    public TaskCreateResponseDto createTask(Long id, TaskCreateRequestDto taskCreateRequestDto) {
+    public TaskCreateResponseDto createTask(Long userId, TaskCreateRequestDto taskCreateRequestDto) {
         // 1. 데이터 준비
-        UserEntity user = userRepository.findById(id)
+        UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 이용자가 없습니다."));
         String title = taskCreateRequestDto.getTitle();
         String content = taskCreateRequestDto.getContent();
@@ -81,37 +81,34 @@ public class TaskService {
 
     //태스크 수정
     @Transactional
-    public TaskUpdateResponseDto updateTask(Long id, TaskUpdateRequestDto taskUpdateRequestDto) {
+    public TaskUpdateResponseDto updateTask(Long taskId, TaskUpdateRequestDto taskUpdateRequestDto) {
         // 1. 데이터
-        Long newId = id;
         String newTitle = taskUpdateRequestDto.getTitle();
         String newContent = taskUpdateRequestDto.getContent();
         // 2. 검증로직 3.조회
-        TaskEntity oldTask = taskRepository.findById(newId)
+        TaskEntity task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 Task가 존재하지 않습니다."));
         // 4. 업데이트
-        TaskEntity newTask = new TaskEntity(
-                newId, oldTask.getUser(), newTitle, newContent
-        );
+        task.updateTitleandContent(newTitle, newContent);
         // 5. Dto 만들기
         TaskUpdateResponseDto taskUpdateResponseDto = new TaskUpdateResponseDto(
-                newId, oldTask.getUser(), newTitle, newContent
+                taskId, task.getUser(), newTitle, newContent
         );
-        taskRepository.save(newTask);
+        taskRepository.save(task);
         // 6. Dto 반환
         return taskUpdateResponseDto;
     }
 
     //태스크 삭제
     @Transactional
-    public TaskDeleteResponseDto deleteTask(Long id) {
+    public TaskDeleteResponseDto deleteTask(Long taskId) {
         // 1. 데이터 준비
 
         //2. 검증로직 3. 조회
-        TaskEntity taskEntity = taskRepository.findById(id)
+        TaskEntity taskEntity = taskRepository.findById(taskId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 Task가 존재하지 않습니다."));
         // 4. 삭제
-        taskRepository.deleteById(id);
+        taskRepository.deleteById(taskId);
         // 5. Dto 만들기
         TaskDeleteResponseDto taskDeleteResponseDto = new TaskDeleteResponseDto("삭제가 완료되었습니다.");
         // 6. Dto 반환

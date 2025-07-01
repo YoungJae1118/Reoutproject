@@ -3,7 +3,6 @@ package org.example.Contorller;
 import org.example.Dto.RequestDto.User.UserCreateRequestDto;
 import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
 import org.example.Dto.ResponseDto.User.*;
-import org.example.Repository.UserRepository;
 import org.example.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,11 +10,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
     public final UserService userService;
-    private final UserRepository userRepository;
 
-    public UserController(UserService userService, UserRepository userRepository) {
+
+    public UserController(UserService userService) {
         this.userService = userService;
-        this.userRepository = userRepository;
     }
 
     //유저 생성
