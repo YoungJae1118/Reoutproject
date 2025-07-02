@@ -1,7 +1,7 @@
 package org.example.Dto.ResponseDto.Task;
 
 import lombok.Getter;
-import org.example.Entity.UserEntity;
+import org.example.entity.UserEntity;
 
 @Getter
 public class TasksDto {

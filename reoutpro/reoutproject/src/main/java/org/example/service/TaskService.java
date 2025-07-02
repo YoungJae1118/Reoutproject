@@ -1,13 +1,5 @@
-package org.example.Service;
+package org.example.service;
 
-import jakarta.transaction.Transactional;
-import org.example.Dto.RequestDto.Task.TaskCreateRequestDto;
-import org.example.Dto.RequestDto.Task.TaskUpdateRequestDto;
-import org.example.Dto.ResponseDto.Task.*;
-import org.example.Entity.TaskEntity;
-import org.example.Entity.UserEntity;
-import org.example.Repository.TaskRepository;
-import org.example.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

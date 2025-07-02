@@ -1,9 +1,5 @@
-package org.example.Contorller;
+package org.example.controller;
 
-import org.example.Dto.RequestDto.Task.TaskCreateRequestDto;
-import org.example.Dto.RequestDto.Task.TaskUpdateRequestDto;
-import org.example.Dto.ResponseDto.Task.*;
-import org.example.Service.TaskService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
