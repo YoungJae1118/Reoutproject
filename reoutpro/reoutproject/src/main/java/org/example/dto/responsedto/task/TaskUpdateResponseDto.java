@@ -1,23 +1,23 @@
 package org.example.Dto.ResponseDto.Task;
 
 import lombok.Getter;
-import org.example.Entity.UserEntity;
+import org.example.entity.UserEntity;
 
 @Getter
-public class TaskFindResponseDto {
+public class TaskUpdateResponseDto {
     private Long id;
     private String name;
     private String title;
     private String content;
 
-    public TaskFindResponseDto(Long id, UserEntity userEntity, String title, String content) {
+    public TaskUpdateResponseDto(Long id, UserEntity user, String title, String content) {
         this.id = id;
-        this.name = userEntity.getName();
+        this.name = user.getName();
         this.title = title;
         this.content = content;
     }
 
-    public TaskFindResponseDto() {
+    public TaskUpdateResponseDto() {
 
     }
 }

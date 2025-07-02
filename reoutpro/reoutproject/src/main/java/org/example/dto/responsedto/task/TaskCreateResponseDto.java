@@ -1,4 +1,4 @@
-package org.example.Dto.ResponseDto.Task;
+package org.example.dto.responsedto.task;
 
 import lombok.Getter;
 

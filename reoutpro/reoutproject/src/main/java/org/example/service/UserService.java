@@ -1,11 +1,6 @@
 package org.example.Service;
 
 import jakarta.transaction.Transactional;
-import org.example.Dto.RequestDto.User.UserCreateRequestDto;
-import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
-import org.example.Dto.ResponseDto.User.*;
-import org.example.Entity.UserEntity;
-import org.example.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

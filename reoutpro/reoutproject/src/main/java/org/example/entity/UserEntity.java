@@ -1,4 +1,4 @@
-package org.example.Entity;
+package org.example.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -23,14 +23,11 @@ public class UserEntity {
     @Column(nullable = false, length = 20)
     private String name;
 
-    protected UserEntity() {
-
-    }
-
     public UserEntity(String email, String password, String name) {
         this.email = email;
         this.password = password;
         this.name = name;
+
     }
 
     public UserEntity(Long id, String email, String password, String name) {
@@ -46,4 +43,3 @@ public class UserEntity {
         this.name = name;
     }
 }
-//

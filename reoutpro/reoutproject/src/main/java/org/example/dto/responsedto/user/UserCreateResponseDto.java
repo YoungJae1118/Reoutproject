@@ -2,7 +2,7 @@ package org.example.Dto.ResponseDto.User;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.Entity.UserEntity;
+import org.example.entity.UserEntity;
 
 @Getter
 @Setter
