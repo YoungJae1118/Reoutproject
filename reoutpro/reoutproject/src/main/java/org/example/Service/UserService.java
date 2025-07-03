@@ -13,9 +13,10 @@ import java.util.List;
 @Service
 public class UserService {
     private final UserRepository userRepository;
-
-    public UserService(UserRepository userRepository) {
+    private JwtService jwtService;
+    public UserService(UserRepository userRepository, JwtService jwtService) {
         this.userRepository = userRepository;
+        this.jwtService = jwtService;
     }
 
     //유저 생성
@@ -31,6 +32,9 @@ public class UserService {
         UserEntity saveUser = userRepository.save(userEntity);
         //4. responseDto 만들기
         UserCreateResponseDto userCreateResponseDto = new UserCreateResponseDto(saveUser);
+        //Token check
+        String jwt = jwtService.createJwt(saveUser.getId());
+        System.out.println(jwt);
         //5.responseDto 반환
         return userCreateResponseDto;
     }

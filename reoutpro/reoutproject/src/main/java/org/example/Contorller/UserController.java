@@ -3,6 +3,7 @@ package org.example.Contorller;
 import org.example.Dto.RequestDto.User.UserCreateRequestDto;
 import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
 import org.example.Dto.ResponseDto.User.*;
+import org.example.Service.JwtService;
 import org.example.Service.UserService;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/users")
 public class UserController {
     public final UserService userService;
-
 
     public UserController(UserService userService) {
         this.userService = userService;
