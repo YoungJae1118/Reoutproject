@@ -22,6 +22,9 @@ public class UserController {
         return userService.createUser(userCreateRequestDto);
     }
 
+    //로그인
+    @PostMapping("/login")
+
     //유저 전체 조회
     @GetMapping
     public UserFindAllResponseDto finAllUserControl() {
@@ -35,7 +38,6 @@ public class UserController {
     }
 
     //유저 수정
-
     @PutMapping("/{userId}")
     public UserUpdateResponseDto updateUserControl(@PathVariable Long userId, @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
         return userService.updateUser(userId, userUpdateRequestDto);

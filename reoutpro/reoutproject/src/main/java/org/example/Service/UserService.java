@@ -1,7 +1,9 @@
 package org.example.Service;
 
 import jakarta.transaction.Transactional;
+import org.apache.tomcat.util.buf.UEncoder;
 import org.example.Dto.RequestDto.User.UserCreateRequestDto;
+import org.example.Dto.RequestDto.User.UserLoginRequestDto;
 import org.example.Dto.RequestDto.User.UserUpdateRequestDto;
 import org.example.Dto.ResponseDto.User.*;
 import org.example.Entity.UserEntity;
@@ -9,14 +11,13 @@ import org.example.Repository.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
     private final UserRepository userRepository;
-    private JwtService jwtService;
-    public UserService(UserRepository userRepository, JwtService jwtService) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.jwtService = jwtService;
     }
 
     //유저 생성
@@ -26,19 +27,34 @@ public class UserService {
         String email = userCreateRequestDto.getEmail();
         String password = userCreateRequestDto.getPassword();
         String name = userCreateRequestDto.getName();
+        //이메일 중복 확인
+        Optional<UserEntity> existingUser = userRepository.findByEmail(email);
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("동일한 이메일이 존재합니다");
+        }
+//        //비밀번호 암호화
+//        String encodedPassword =
         //2. 엔티티 만들기
         UserEntity userEntity = new UserEntity(email, password, name);
         //3. 저장
         UserEntity saveUser = userRepository.save(userEntity);
         //4. responseDto 만들기
         UserCreateResponseDto userCreateResponseDto = new UserCreateResponseDto(saveUser);
-        //Token check
-        String jwt = jwtService.createJwt(saveUser.getId());
-        System.out.println(jwt);
         //5.responseDto 반환
         return userCreateResponseDto;
     }
+/*
+    //로그인
+    //@Transactional
+    public String loginUser(UserLoginRequestDto userLoginRequestDto) {
+        //Data
+        String email = userLoginRequestDto.getEmail();
+        String password = userLoginRequestDto.getPassword();
 
+        //find repository
+        userRepository
+    }
+*/
     //유저 전체 조회
     @Transactional
     public UserFindAllResponseDto findAllUser() {
