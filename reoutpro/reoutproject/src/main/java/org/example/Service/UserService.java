@@ -129,14 +129,17 @@ public class UserService {
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 유저 정보가 없습니다"));
         //인증인가
         //헤더 뽑기
-        String authHeader = httpServletRequest.getHeader("Auth");
+        String authHeader = httpServletRequest.getHeader("Authorization");
         //토큰 조건 부합 확인
         if (!authHeader.startsWith("Bearer")) {
             throw new IllegalArgumentException("Bearer 토큰이 인식되지 않았습니다");
         }
         String token = authHeader.substring(7); //띄어쓰기도 생각 Bearer token
         //토큰이 일치하는지 확인
-
+        Long idInToken = jwtService.parserJwtForId(token);
+        if (!oldUser.getId().equals(idInToken)) {
+            throw new IllegalArgumentException("토큰 정보가 일치하지 않습니다");
+        }
         // 4.업데이트
         oldUser.updateUser(newEmail, newPassword, newName);
         userRepository.save(oldUser);
@@ -147,12 +150,20 @@ public class UserService {
     }
 
     @Transactional
-    public UserDeleteResponseDto deleteUser(Long userId) {
+    public UserDeleteResponseDto deleteUser(Long userId, HttpServletRequest httpServletRequest) {
         // 1. 데이터 준비하기
-
+        String authHeader = httpServletRequest.getHeader("Authorization");
         // 2. 검증로직 작성 3. 조회
         UserEntity user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("ID에 해당하는 유저가 존재하지 않습니다."));
+        if(!authHeader.startsWith("Bearer")) {
+            throw new IllegalArgumentException("토큰을 인식할 수 없습니다");
+        }
+        String token = authHeader.substring(7);
+        Long idInToken = jwtService.parserJwtForId(token);
+        if (!userId.equals(idInToken)) {
+            throw new IllegalArgumentException("토큰 정보가 일치하지 않습니다.");
+        }
         // 4. 삭제
         userRepository.deleteById(userId);
         // 5. responseDto 생성

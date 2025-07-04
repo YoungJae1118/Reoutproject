@@ -50,8 +50,8 @@ public class UserController {
 
     //유저 삭제
     @DeleteMapping("/{userId}")
-    public UserDeleteResponseDto deleteUserControl(@PathVariable Long userId) {
-        return userService.deleteUser(userId);
+    public UserDeleteResponseDto deleteUserControl(@PathVariable Long userId, HttpServletRequest httpServletRequest) {
+        return userService.deleteUser(userId, httpServletRequest);
     }
 }
 

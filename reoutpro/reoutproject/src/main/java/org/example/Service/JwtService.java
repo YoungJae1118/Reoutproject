@@ -31,14 +31,15 @@ public class JwtService {
                 .compact();
                 return jwt;
     }
+
     //JWT 분석하기 12.6 구글링해서 겨우 찾음
-    public Long parserJwt (String jwt) {
+    public Long parserJwtForId (String jwt) {
         Claims claims = Jwts.parser() // parser() 사용
                 .verifyWith(secretKey)
                 .build()
                 .parseSignedClaims(jwt)
                 .getPayload();
 
-        return Long.parseLong(claims.getId());
+        return Long.parseLong(claims.getSubject());
     }
 }

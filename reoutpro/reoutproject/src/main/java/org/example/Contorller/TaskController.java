@@ -1,5 +1,6 @@
 package org.example.Contorller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.Dto.RequestDto.Task.TaskCreateRequestDto;
 import org.example.Dto.RequestDto.Task.TaskUpdateRequestDto;
 import org.example.Dto.ResponseDto.Task.*;
@@ -16,8 +17,8 @@ public class TaskController {
     }
 
     @PostMapping("/{userId}")
-    public TaskCreateResponseDto createTaskControl(@PathVariable Long userId, @RequestBody TaskCreateRequestDto taskCreateRequestDto) {
-        return taskService.createTask(userId, taskCreateRequestDto);
+    public TaskCreateResponseDto createTaskControl(@PathVariable Long userId, @RequestBody TaskCreateRequestDto taskCreateRequestDto, HttpServletRequest httpServletRequest) {
+        return taskService.createTask(userId, taskCreateRequestDto, httpServletRequest);
     }
 
     @GetMapping
@@ -31,12 +32,12 @@ public class TaskController {
     }
 
     @PutMapping("/{taskId}")
-    public TaskUpdateResponseDto updateTaskControl(@PathVariable Long taskId, @RequestBody TaskUpdateRequestDto taskUpdateRequestDto) {
-        return taskService.updateTask(taskId, taskUpdateRequestDto);
+    public TaskUpdateResponseDto updateTaskControl(@PathVariable Long taskId, @RequestBody TaskUpdateRequestDto taskUpdateRequestDto, HttpServletRequest httpServletRequest) {
+        return taskService.updateTask(taskId, taskUpdateRequestDto, httpServletRequest);
     }
 
     @DeleteMapping("/{taskId}")
-    public TaskDeleteResponseDto deleteTaskControl(@PathVariable Long taskId) {
-        return taskService.deleteTask(taskId);
+    public TaskDeleteResponseDto deleteTaskControl(@PathVariable Long taskId,HttpServletRequest httpServletRequest) {
+        return taskService.deleteTask(taskId, httpServletRequest);
     }
 }
