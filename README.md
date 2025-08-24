@@ -153,9 +153,8 @@ FilmPass는 고객들에게 빠르고 안정적인 영화 티켓 예매 경험�
 - [Junit5]()
 
 ## 8. API 명세서
-👉 추후 Swagger UI 캡쳐 / 표 / Notion API 문서 링크 삽입  
 
----
+(https://www.notion.so/teamsparta/1-One-Take-2482dc3ef51480f985aff3278597742f?source=copy_link#2532dc3ef51480ae9cb8f6b729725101)
 
 ## 9. 트러블슈팅 (Troubleshooting)
 
