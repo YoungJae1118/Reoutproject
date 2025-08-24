@@ -12,7 +12,25 @@ FilmPass는 고객들에게 빠르고 안정적인 영화 티켓 예매 경험�
 
 ---
 
-## 3. 주요 기능
+## 3. 개발 기간
+📅 **2025/07/17 ~ 2025/08/22**
+
+---
+
+## 4. 개발 환경
+- **OS**: Windows 10 / macOS (팀원별 환경)  
+- **IDE**: IntelliJ IDEA Ultimate  
+- **Version Control**: Git, GitHub  
+- **Build Tool**: Gradle 8.x  
+- **Database(Local)**: H2 Database (개발용)  
+- **Database(Prod)**: MySQL 8.x  
+- **Cache**: Redis 7.x  
+- **Infra**: Docker, AWS EC2  
+- **협업 툴**: Notion, Slack, ERD Cloud  
+
+---
+
+## 5. 주요 기능
 
 ### 🎥 영화 관리
 - **등록 / 수정 / 삭제 (관리자 전용)**  
@@ -63,17 +81,17 @@ FilmPass는 고객들에게 빠르고 안정적인 영화 티켓 예매 경험�
   → 자주 조회되는 영화 검색 결과를 캐싱하여 응답 속도 개선  
 - **캐시 무효화 정책**  
   → 영화 등록/수정/삭제 시 관련 캐시 자동 제거  
-- 검색 고도화: Elasticsearch 기반 실시간 검색
+- **검색 고도화**: Elasticsearch 기반 실시간 검색  
+
 ---
 
 ### 📊 추가 기능(확장 계획)
 - 결제 모듈: 실제 PG(Payment Gateway) 연동  
 - 추천 시스템: 사용자 맞춤 영화 추천    
 
-
 ---
 
-## 4. 사용한 기술 목록
+## 6. 사용한 기술 목록
 
 ### 언어 및 프레임워크
 - [Java 17](https://www.notion.so/Java-17-2532dc3ef51480abb970ff2c30da6e55?pvs=21)  
@@ -100,4 +118,30 @@ FilmPass는 고객들에게 빠르고 안정적인 영화 티켓 예매 경험�
 
 ### Test
 - [Postman](https://www.notion.so/Postman-2532dc3ef51480f6a06aefe6be154f60?pvs=21)  
-- [Junit5]()
+- [Junit5](https://www.notion.so/Junit5-2542dc3ef514808bba63d26bcc427c58?pvs=21)  
+- [K6](https://www.notion.so/K6-2542dc3ef514803aa7bdd88582b1dcef?pvs=21)  
+
+### Tools
+- [IntelliJ IDEA](https://www.notion.so/Intellij-IDEA-2532dc3ef51480548555fb9ef02f2c13?pvs=21)  
+
+### Collaboration
+- [Notion](https://www.notion.so/Notion-2532dc3ef514808098b4ea22f9c93d74?pvs=21)  
+- [GitHub](https://www.notion.so/GitHub-2532dc3ef5148033aaf2facc6a9b94e3?pvs=21)  
+- [Slack](https://www.notion.so/Slack-2532dc3ef5148098aca4dfd7ffa588c6?pvs=21)  
+- [ERD cloud](https://www.notion.so/ERD-cloud-2532dc3ef51480eb8e9afe8163f6a536?pvs=21)  
+- [RESTful API](https://www.notion.so/RESTful-API-2532dc3ef51480a5b84af6eefdea05b2?pvs=21)  
+- [draw.io](https://www.notion.so/draw-io-2532dc3ef51480af9860fb9393ec39c6?pvs=21)  
+
+---
+
+## 7. 트러블슈팅 (Troubleshooting)
+
+👉 추후 상세 내용 삽입  
+
+📌 **작성 템플릿 예시**  
+- **문제 상황**: (어떤 문제가 발생했는지 간단히)  
+- **원인 분석**: (로그, 코드, 설정 등으로 원인 추적)  
+- **해결 방법**: (어떤 방식으로 해결했는지 단계별 기술)  
+- **배운 점**: (이 문제를 통해 배운 것, 적용할 교훈)  
+
+---
